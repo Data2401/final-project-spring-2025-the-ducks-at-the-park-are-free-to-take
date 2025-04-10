@@ -7,29 +7,137 @@ output: slidy_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
 ```
 
-## R Markdown
+# Variables of interest (hitting):
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+-   launch angle (`launch_angle_avg`)
+-   exit velocity (`exit_velocity_avg`)
+-   hard-hit rate (`hard_hit_percent`)
+-   barrel batted rate (`barrel_batted_rate`)
+-   strikeout percentage (`k_percent`)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+```{r}
+hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
 
-## Slide with Bullets
+#glimpse(hitting)
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+#hitting %>% select(launch_angle_avg)
 ```
 
-## Slide with Plot
+# a
 
-```{r pressure}
-plot(pressure)
+```{r}
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_launch_angle=mean(launch_angle_avg)) %>% 
+  ggplot(aes(year, avg_launch_angle)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
 ```
+
+# b
+
+``` {r}
+hitting %>% 
+  ggplot(aes(as.factor(year), launch_angle_avg)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+```
+
+# c
+
+```{r}
+hitting %>% 
+  ggplot(aes(barrel_batted_rate, exit_velocity_avg)) +
+  geom_point() +
+  geom_smooth()
+```
+
+# d
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), barrel_batted_rate)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+  
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_bbr=mean(barrel_batted_rate)) %>% 
+  ggplot(aes(year, avg_bbr)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# e
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), exit_velocity_avg)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_exitv=mean(exit_velocity_avg)) %>% 
+  ggplot(aes(year, avg_exitv)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# f
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), hard_hit_percent)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_hhp=mean(hard_hit_percent)) %>% 
+  ggplot(aes(year, avg_hhp)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# g
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), k_percent)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_kp=mean(k_percent)) %>% 
+  ggplot(aes(year, avg_kp)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# Variables of interest (pitching)
+
+- fast ball average velocity (`ff_avg_speed`)
+- fast ball spin (`ff_avg_spin`)
+- fast ball induced vertical break (`ff_avg_break_z_induced `)
+- 
+
+```{r}
+pitching <- read.csv('QPitchingstats.csv')
+
+glimpse(pitching)
+```
+
+
+
+
 
