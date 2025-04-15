@@ -1,0 +1,320 @@
+---
+title: "draft code"
+author: "John Nobles, Adam Gullion"
+date: "`r Sys.Date()`"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(gapminder)
+library(ggthemes)
+library(stringr)
+```
+
+# Variables of interest (hitting):
+
+-   launch angle (`launch_angle_avg`)
+-   exit velocity (`exit_velocity_avg`)
+-   hard-hit rate (`hard_hit_percent`)
+-   barrel batted rate (`barrel_batted_rate`)
+-   strikeout percentage (`k_percent`)
+
+```{r}
+hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
+
+#glimpse(hitting)
+
+#hitting %>% select(launch_angle_avg)
+```
+
+# a
+
+```{r}
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_launch_angle=mean(launch_angle_avg)) %>% 
+  ggplot(aes(year, avg_launch_angle)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# b
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), launch_angle_avg)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+```
+
+# c
+
+```{r}
+hitting %>% 
+  ggplot(aes(barrel_batted_rate, exit_velocity_avg)) +
+  geom_point() +
+  geom_smooth()
+```
+
+# d
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), barrel_batted_rate)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+  
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_bbr=mean(barrel_batted_rate)) %>% 
+  ggplot(aes(year, avg_bbr)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# e
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), exit_velocity_avg)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_exitv=mean(exit_velocity_avg)) %>% 
+  ggplot(aes(year, avg_exitv)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# f
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), hard_hit_percent)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_hhp=mean(hard_hit_percent)) %>% 
+  ggplot(aes(year, avg_hhp)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# g
+
+```{r}
+hitting %>% 
+  ggplot(aes(as.factor(year), k_percent)) +
+  geom_boxplot(outlier.color='red') +
+  theme_bw()
+
+hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_kp=mean(k_percent)) %>% 
+  ggplot(aes(year, avg_kp)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+```
+
+# Variables of interest (pitching)
+
+-   fast ball average velocity (`ff_avg_speed`)
+-   fast ball spin (`ff_avg_spin`)
+-   fast ball induced vertical break (`ff_avg_break_z_induced`)
+-   
+
+```{r}
+pitching <- read.csv('QPitchingstats.csv')
+
+glimpse(pitching)
+```
+
+# h _ fast-ball spin correlation to k_percent
+
+```{r}
+
+pitching %>% 
+  ggplot(aes(ff_avg_spin, k_percent)) +
+  geom_point() +
+  geom_smooth()
+
+pitching %>% 
+  ggplot(aes(ff_avg_speed, k_percent)) +
+  geom_point() +
+  geom_smooth()
+```
+
+# I ff quality vs OPS
+
+```{r}
+pitching %>% 
+  ggplot(aes(ff_avg_speed, on_base_plus_slg)) +
+  geom_point() +
+  geom_smooth()
+
+pitching %>% 
+  ggplot(aes(ff_avg_spin, on_base_plus_slg)) +
+  geom_point() +
+  geom_smooth()
+```
+
+# J ff vs ex velo& La
+
+```{r}
+pitching %>% 
+  ggplot(aes(ff_avg_speed, exit_velocity_avg)) +
+  geom_point() +
+  geom_smooth()
+
+pitching %>% 
+  ggplot(aes(ff_avg_spin, exit_velocity_avg)) +
+  geom_point() +
+  geom_smooth()
+
+
+pitching %>% 
+  ggplot(aes(ff_avg_spin, launch_angle_avg)) +
+  geom_point() +
+  geom_smooth()
+
+pitching %>% 
+  ggplot(aes(ff_avg_speed, launch_angle_avg)) +
+  geom_point() +
+  geom_smooth()
+```
+
+```{r}
+pitching %>% 
+  ggplot(aes(ff_avg_spin, hard_hit_percent)) +
+  geom_point() +
+  geom_smooth()
+
+
+pitching %>% 
+  ggplot(aes(ff_avg_speed, hard_hit_percent)) +
+  geom_point() +
+  geom_smooth()
+
+```
+
+# k ff vs whiff%
+
+```{r}
+pitching %>% 
+  ggplot(aes(ff_avg_speed, whiff_percent)) +
+  geom_point() +
+  geom_smooth()
+
+
+pitching %>% 
+  ggplot(aes(ff_avg_spin, whiff_percent)) +
+  geom_point() +
+  geom_smooth()
+
+```
+
+# L year vs ip
+
+```{r}
+pitching %>% 
+  ggplot(aes(year, p_formatted_ip)) +
+  geom_point() +
+  geom_smooth()
+
+
+
+pitching %>%
+  ggplot(aes(year, p_formatted_ip)) +
+  geom_col()
+
+pitching %>%
+  group_by(year) %>%
+  summarize(avg_p_formatted_ip = mean(p_formatted_ip)) %>%
+  ggplot(aes(year, avg_p_formatted_ip)) +
+  geom_col()
+
+
+pitching %>%
+  group_by(year) %>%
+  summarize(avg_p_formatted_ip = mean(p_formatted_ip, na.rm = TRUE))
+
+summary(pitching$p_formatted_ip)
+summary(pitching$year)
+
+
+pitching %>%
+  filter(year != 2020) %>% # Exclude rows where the year is 2020
+  group_by(year) %>%
+  summarize(avg_p_formatted_ip = mean(p_formatted_ip, na.rm = TRUE))
+
+
+pitching %>%
+  filter(year != 2020) %>% # Remove year 2020
+  group_by(year) %>%
+  summarize(avg_p_formatted_ip = mean(p_formatted_ip, na.rm = TRUE)) %>%
+  ggplot(aes(x = year, y = avg_p_formatted_ip)) +
+  geom_point() +
+  theme_minimal()+ geom_smooth()
+
+```
+
+# M ff vs sweetspot
+
+```{r}
+pitching %>% 
+  ggplot(aes(ff_avg_spin, sweet_spot_percent)) +
+  geom_point() +
+  geom_smooth()
+
+
+pitching %>% 
+  ggplot(aes(ff_avg_speed, sweet_spot_percent)) +
+  geom_point() +
+  geom_smooth()
+```
+
+# N (Sticky Stuff)
+
+```{r}
+pitching%>% 
+  group_by(year) %>% 
+  summarize(k_percent=mean(k_percent)) %>% 
+  ggplot(aes(year, k_percent)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+
+
+pitching %>% summarize(ff_avg_spin = mean(ff_avg_spin, na.rm = TRUE))
+plot_data <- pitching %>%
+  group_by(year) %>%
+  summarize(ff_avg_spin = mean(ff_avg_spin, na.rm = TRUE))
+print(plot_data)
+
+
+pitching %>%
+  group_by(year) %>%
+  summarize(ff_avg_spin = mean(ff_avg_spin, na.rm = TRUE)) %>%
+  ggplot(aes(year, ff_avg_spin)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+
+#Sticky Stuff
+#June 21, 2021 - MLB Cracks down on sticky stuff
+
+
+```
