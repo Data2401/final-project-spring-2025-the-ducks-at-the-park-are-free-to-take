@@ -1,6 +1,6 @@
 ---
 title: "finding theme"
-author: "John Nobles, Adam Gullion, Jonathan Aguilar"
+author: "John Nobles, Adam Gllion, Jonathan Aguilar"
 date: "`r Sys.Date()`"
 output: slidy_presentation
 ---
