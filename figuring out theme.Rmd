@@ -1,0 +1,46 @@
+---
+title: "finding theme"
+author: "John Nobles, Adam Gullion, Jonathan Aguilar"
+date: "`r Sys.Date()`"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+install.packages("ggthemes")
+library(ggthemes)
+```
+
+```{r}
+scale_colour_paletteer_d("tvthemes::BluebirdAzurite")
+scale_color_paletteer_d("tvthemes::BluebirdAzurite")
+scale_fill_paletteer_d("tvthemes::BluebirdAzurite")
+paletteer_d("tvthemes::BluebirdAzurite")
+
+pitching %>% ggplot(aes(avg_best_speed, avg_hyper_speed, color=factor(year))) + geom_point(alpha=.5) + theme_test() + labs(title='Average hyper speed vs. Average best speed by Year', y='Average hyper speed', x='Average best speed', color='Year') 
+```
+
+```{r}
+glimpse(pitching)
+pitching %>%
+  group_by(year) %>% 
+  summarize(average_spin_rate = mean(ff_avg_spin, na.rm=TRUE)) %>% 
+  ggplot(aes(year, average_spin_rate)) + geom_point() + geom_smooth(method='lm', color='purple')
+```
+
+```{r}
+pitching %>% filter(last_name..first_name == 'Cole, Gerrit') %>% select(last_name..first_name, year, k_percent, ff_avg_spin)
+
+```
+
+```{r}
+pitching %>% group_by(year) %>% summarize(q3_k = quantile(k_percent, .75), q3_ff_spin=quantile(ff_avg_spin, .75, na.rm=TRUE)) %>% filter(year < 2024)
+min(pitching$ff_avg_spin, na.rm=TRUE)
+```
+
+
+

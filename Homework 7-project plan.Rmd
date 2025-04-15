@@ -1,0 +1,39 @@
+---
+title: "Project Plan"
+author: "John Nobles, Adam Gullion, Jonathan Aguilar"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    highlight: textmate
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+
+# Our data
+hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
+pitching <- read.csv('QPitchingstats.csv')
+```
+
+```{r}
+# What's our data about?
+glimpse(hitting)
+glimpse(pitching)
+```
+
+Our data is downloaded directly from baseballsavant.mlb.com, an online database of MLB statistics from 2015 through 2024.
+
+For hitting statistics, we selected a variety of variables that we think could be interesting (shown by `glimpse(hitting)`), such as `k_percent` (strikeout percentage), `launch_angle_avg` (average launch angle for a given player), and `exit_velocity_avg` (average velocity of the ball after getting hit by the bat). 
+
+For pitching statistics, we did the same, shown by `glimpse(pitching)`. Some variables we chose to investigate include `ff_avg_spin` (average spin of fast ball), `ff_avg_speed` (average speed of fast ball), and `whiff_percent` (how often a batter misses a pitch after swinging at it).
+
+The main motivation we have for investigating this dataset is that we believe statcast has significantly impacted the strategies and therefore performances of major leage baseball players. We want to investigate when this impact started taking effect, the magnitude of its effect, and any other relationships we unearth. 
+
+For example, we want to investigate how and why statcast has influenced hitters to begin optimizing launch angle and exit velocity.
+
+On the pitching side, we believe statcast, for example, has influenced pitchers to optimize their fast ball spin rate along with various other statistics.
