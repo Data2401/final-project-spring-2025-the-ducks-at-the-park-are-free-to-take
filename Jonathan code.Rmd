@@ -1,6 +1,6 @@
 ---
 title: "Jonathan's Section"
-author: "Jonathan"
+author: "John Nobles, Adam Gullion, Jonathan Aguilar"
 date: "2025-04-15"
 output: slidy_presentation
 ---
@@ -114,8 +114,8 @@ data <- data.frame(years,launch_angle_avg)
 ggplot(data,aes(x=years, y=launch_angle_avg)) + ylab("Launch angle avarge") + scale_x_discrete(limits = years) + ylim(10,14) + geom_line()
 ```
 
-# Flyball percentage
-- The percentage of a player's batted balls that are classified as fly balls
+# Flyball percentage over the years
+- Fly ball refers to a batted ball that travels on an arcing trajectory into the outfield.
 
 ```{r}
 abs_2015 = hitting %>% 
