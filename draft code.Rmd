@@ -1,6 +1,6 @@
 ---
 title: "draft code"
-author: "John Nobles, Adam Gullion"
+author: "John Nobles, Adam Gullion, Jonathan Aguilar"
 date: "`r Sys.Date()`"
 output: slidy_presentation
 ---
@@ -139,5 +139,26 @@ glimpse(pitching)
 
 
 
+
+```{r}
+pitching %>% select(-last_name..first_name, -player_id) %>% select(year, ff_avg_spin, ff_avg_speed, exit_velocity_avg, whiff_percent, hard_hit_percent, barrel_batted_rate, sweet_spot_percent, launch_angle_avg) %>% pairs()
+```
+# z
+
+```{r}
+# creates new column in pitching which contains the average hard hit percentage for each year
+pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %>% 
+  ggplot(aes(as.factor(year), hard_hit_percent)) + 
+  geom_boxplot() + 
+  geom_point(aes(as.factor(year), avg_hhp_by_year), color='red', show.legend=TRUE) +
+  theme_test() +
+  labs(title='Hard hitting percentage by year',
+       x='Year',
+       y='Hard Hit %',
+       color='Average HH% per year',
+       legend='a')
+  
+
+```
 
 

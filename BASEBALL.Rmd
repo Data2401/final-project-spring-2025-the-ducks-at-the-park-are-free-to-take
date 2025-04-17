@@ -1,6 +1,6 @@
 ---
 title: "draft code"
-author: "John Nobles, Adam Gullion"
+author: "John Nobles, Adam Gullion, Jonathan Aguilar"
 date: "`r Sys.Date()`"
 output: slidy_presentation
 ---
@@ -13,7 +13,7 @@ library(ggplot2)
 library(gapminder)
 library(ggthemes)
 library(stringr)
-```
+``` 
 
 # Variables of interest (hitting):
 
@@ -306,7 +306,11 @@ print(plot_data)
 
 
 pitching %>%
-  group_by(year) %>%
+  gro
+#June 21, 2021 - MLB Cracks down on sticky stuff
+
+
+```up_by(year) %>%
   summarize(ff_avg_spin = mean(ff_avg_spin, na.rm = TRUE)) %>%
   ggplot(aes(year, ff_avg_spin)) +
   geom_point() +
@@ -314,7 +318,3 @@ pitching %>%
   geom_smooth()
 
 #Sticky Stuff
-#June 21, 2021 - MLB Cracks down on sticky stuff
-
-
-```
