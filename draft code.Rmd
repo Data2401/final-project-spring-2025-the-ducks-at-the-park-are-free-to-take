@@ -134,7 +134,7 @@ hitting %>%
 ```{r}
 pitching <- read.csv('QPitchingstats.csv')
 
-glimpse(pitching)
+glimpse(pitching)        
 ```
 
 

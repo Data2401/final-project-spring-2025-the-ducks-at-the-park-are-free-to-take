@@ -11,22 +11,166 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
 ```
 
-## Including Plots
+# Variables of interest (hitting):
 
-You can also embed plots, for example:
+-   launch angle (`launch_angle_avg`)
+-   exit velocity (`exit_velocity_avg`)
+-   hard-hit rate (`hard_hit_percent`)
+-   barrel batted rate (`barrel_batted_rate`)
+-   strikeout percentage (`k_percent`)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
+
+#glimpse(hitting)
+
+#hitting %>% select(launch_angle_avg)
+
+hitting
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(hit) %>% unlist() %>% mean()
+
+
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(hit) %>% unlist() %>% mean()
+
+hits = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,hits)
+
+# Plot
+ggplot(data,aes(x=years, y=hits)) + geom_line()
+```
+
+```{r}
+hitting %>% ggplot(aes(x = as.factor(year),y = hit)) + geom_point() 
+
+```
+
+
+```{r}
+pitching <- read.csv('QPitchingstats.csv')
+
+pitching
+```
+
+```{r}
+pitching %>% ggplot(aes(x = as.factor(year),y = p_game)) + geom_point() 
+```
+
+```{r}
+abs_2015 = pitching %>% 
+  filter(year == 2015) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2016 = pitching %>% 
+  filter(year == 2016) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2017 = pitching %>% 
+  filter(year == 2017) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2018 = pitching %>% 
+  filter(year == 2018) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2019 = pitching %>% 
+  filter(year == 2019) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2020 = pitching %>% 
+  filter(year == 2020) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2021 = pitching %>% 
+  filter(year == 2021) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2022 = pitching %>% 
+  filter(year == 2022) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2023 = pitching %>% 
+  filter(year == 2023) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2024 = pitching %>% 
+  filter(year == 2024) %>% select(p_game) %>% unlist() %>% mean()
+
+p_game = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,p_game)
+
+# Plot
+ggplot(data,aes(x=years, y=p_game)) + geom_line()
+
+```
+```{r}
+abs_2015 = pitching %>% 
+  filter(year == 2015) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2016 = pitching %>% 
+  filter(year == 2016) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2017 = pitching %>% 
+  filter(year == 2017) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2018 = pitching %>% 
+  filter(year == 2018) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2019 = pitching %>% 
+  filter(year == 2019) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2020 = pitching %>% 
+  filter(year == 2020) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2021 = pitching %>% 
+  filter(year == 2021) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2022 = pitching %>% 
+  filter(year == 2022) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2023 = pitching %>% 
+  filter(year == 2023) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2024 = pitching %>% 
+  filter(year == 2024) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+ffavgspin = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,ffavgspin)
+
+# Plot
+ggplot(data,aes(x=years, y=ffavgspin)) + geom_line()
+
+```
