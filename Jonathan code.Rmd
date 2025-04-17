@@ -160,7 +160,8 @@ ggplot(data,aes(x=years, y=flyballs_percent)) + ylab("Flyball percentage ") + sc
 
 ```
 
-#
+# Line drives percentage over the years
+- Line drives are batted balls that travel in a sharp, straight line with minimal arc, usually not far above the ground.
 
 ```{r}
 hits_2015 = hitting %>% 
@@ -199,54 +200,10 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,linedrives_percent)
 
 # Plot
-ggplot(data,aes(x=years, y=linedrives_percent)) + scale_x_discrete(limits = years) + ylim(0,50) + geom_line()
+ggplot(data,aes(x=years, y=linedrives_percent)) + ylab("Line drives %") + scale_x_discrete(limits = years) + ylim(0,50) + geom_line()
 
 ```
 
-#
-
-```{r}
-hits_2015 = hitting %>% 
-  filter(year == 2015) %>% select(ab) %>% unlist() %>% mean()
-
-
-
-hits_2016 = hitting %>% 
-  filter(year == 2016) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2017 = hitting %>% 
-  filter(year == 2017) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2018 = hitting %>% 
-  filter(year == 2018) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2019 = hitting %>% 
-  filter(year == 2019) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2020 = hitting %>% 
-  filter(year == 2020) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2021 = hitting %>% 
-  filter(year == 2021) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2022 = hitting %>% 
-  filter(year == 2022) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2023 = hitting %>% 
-  filter(year == 2023) %>% select(ab) %>% unlist() %>% mean()
-
-hits_2024 = hitting %>% 
-  filter(year == 2024) %>% select(ab) %>% unlist() %>% mean()
-
-ab = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
-years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
-
-data <- data.frame(years,ab)
-
-# Plot
-ggplot(data,aes(x=years, y=ab)) + scale_x_discrete(limits = years) + ylim(0,600) + geom_line()
-
-```
 
 
 # How is swing percentage effected over the years?
@@ -303,14 +260,8 @@ pitching
 ```
 
 
-#
-
-```{r}
-pitching %>% ggplot(aes(x = as.factor(year),y = p_game)) + geom_point() 
-```
-
-
-#
+# Perfect (P) games avarage over the years
+- A perfect game occurs when a pitcher, or a series of pitchers, retires all 27 opposing batters without allowing any of them to reach base.
 
 ```{r}
 abs_2015 = pitching %>% 
@@ -349,10 +300,11 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,p_game)
 
 # Plot
-ggplot(data,aes(x=years, y=p_game)) + scale_x_discrete(limits = years) + ylim(0,35) + geom_line()
+ggplot(data,aes(x=years, y=p_game)) + scale_x_discrete(limits = years) + ylab("P game") + ylim(0,35) + geom_line()
 ```
 
-#
+# Four seam fast-ball (FF) spin rate avarage over the years
+- (FF) is a common type of pitch thrown by pitchers, characterized by its straight, forward movement.
 
 ```{r}
 abs_2015 = pitching %>% 
@@ -392,16 +344,17 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,ffavgspin)
 
 # Plot
-ggplot(data,aes(x=years, y=ffavgspin)) + scale_x_discrete(limits = years) + ylim(0,3000) + geom_line()
+ggplot(data,aes(x=years, y=ffavgspin)) + scale_x_discrete(limits = years) + ylab("(FF) spin rate avarage") + ylim(0,3000) + geom_line()
 
 ```
 
 
-#
+# Change up (CH) avaerage spin rate over the years
+- The "CH" stands for change up, a type of pitch characterized by its low speed and tendency to move away from the hitter.
 
 ```{r}
 abs_2015 = pitching %>% 
-  filter(year == 2015) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+  filter(year == 2015) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
 
 abs_2016 = pitching %>% 
   filter(year == 2016) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
@@ -437,6 +390,6 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,ch_avg_spin)
 
 # Plot
-ggplot(data,aes(x=years, y=ch_avg_spin)) + scale_x_discrete(limits = years) + ylim(0,3000) + geom_line()
+ggplot(data,aes(x=years, y=ch_avg_spin)) + scale_x_discrete(limits = years) + ylab("(CH) avaerage spin rate") + ylim(0,3000) + geom_line()
 
 ```
