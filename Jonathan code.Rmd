@@ -1,28 +1,19 @@
 ---
-title: "Jonathans_code"
+title: "Jonathans Section"
 author: "Jonathan"
 date: "2025-04-15"
-output:
-  html_document:
-    df_print: paged
+output: slidy_presentation
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+#```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+#```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 ```
 
-# Variables of interest (hitting):
-
--   launch angle (`launch_angle_avg`)
--   exit velocity (`exit_velocity_avg`)
--   hard-hit rate (`hard_hit_percent`)
--   barrel batted rate (`barrel_batted_rate`)
--   strikeout percentage (`k_percent`)
 
 ```{r}
 hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
@@ -33,6 +24,8 @@ hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
 
 hitting
 ```
+
+#
 
 ```{r}
 hits_2015 = hitting %>% 
@@ -75,6 +68,8 @@ data <- data.frame(years,hits)
 # Plot
 ggplot(data,aes(x=years, y=hits)) + scale_x_discrete(limits = years) + ylim(0,200) + geom_line()
 ```
+
+#
 
 ```{r}
 hitting %>% ggplot(aes(x = as.factor(year),y = hit)) + geom_point() 
@@ -128,6 +123,7 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 ```
 
 
+
 ```{r}
 data <- data.frame(years,p_game)
 
@@ -139,7 +135,7 @@ data <- data.frame(years,p_game)
 ggplot(data,aes(x=years, y=p_game)) + scale_x_discrete(limits = years) + ylim(0,35) + geom_line()
 ```
 
-
+#
 
 ```{r}
 abs_2015 = pitching %>% 
@@ -183,6 +179,8 @@ ggplot(data,aes(x=years, y=ffavgspin)) + scale_x_discrete(limits = years) + ylim
 
 ```
 
+#
+
 ```{r}
 abs_2015 = hitting %>% 
   filter(year == 2015) %>% select(launch_angle_avg) %>% unlist() %>% mean()
@@ -225,6 +223,8 @@ data <- data.frame(years,launch_angle_avg)
 ggplot(data,aes(x=years, y=launch_angle_avg))+ scale_x_discrete(limits = years) + ylim(10,14) + geom_line()
 ```
 
+#
+
 ```{r}
 abs_2015 = hitting %>% 
   filter(year == 2015) %>% select(flyballs_percent) %>% unlist() %>% mean()
@@ -264,9 +264,11 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,flyballs_percent)
 
 # Plot
-ggplot(data,aes(x=years, y=flyballs_percent))+ scale_x_discrete(limits = years) + geom_line()
+ggplot(data,aes(x=years, y=flyballs_percent)) + ylab("Flyball percentage ") + scale_x_discrete(limits = years) + geom_line()
 
 ```
+
+#
 
 ```{r}
 abs_2015 = hitting %>% 
@@ -310,6 +312,7 @@ data <- data.frame(years,flyballs)
 ggplot(data,aes(x=years, y=flyballs))+ scale_x_discrete(limits = years) + ylim(0,120) + geom_line()
 ```
 
+#
 
 ```{r}
 abs_2015 = pitching %>% 
@@ -353,6 +356,7 @@ ggplot(data,aes(x=years, y=ch_avg_spin)) + scale_x_discrete(limits = years) + yl
 
 ```
 
+#
 
 ```{r}
 hits_2015 = hitting %>% 
@@ -392,5 +396,94 @@ data <- data.frame(years,linedrives_percent)
 
 # Plot
 ggplot(data,aes(x=years, y=linedrives_percent)) + scale_x_discrete(limits = years) + ylim(0,50) + geom_line()
+
+```
+
+#
+
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(swing_percent) %>% unlist() %>% mean()
+
+
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(swing_percent) %>% unlist() %>% mean()
+
+swing_percent = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,swing_percent)
+
+# Plot
+ggplot(data,aes(x=years, y=swing_percent)) + scale_x_discrete(limits = years) + ylim(0,100) + geom_line()
+```
+
+#
+
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(ab) %>% unlist() %>% mean()
+
+
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(ab) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(ab) %>% unlist() %>% mean()
+
+ab = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,ab)
+
+# Plot
+ggplot(data,aes(x=years, y=ab)) + scale_x_discrete(limits = years) + ylim(0,600) + geom_line()
 
 ```
