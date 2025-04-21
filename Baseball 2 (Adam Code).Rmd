@@ -47,6 +47,9 @@ hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
   <img src="Stat cast 2 electric boogaloo.png" alt="Statcast Camera In an MLB Stadium" style="width: 45%; margin-right: 10px;">
   <img src="Stat cast camera placement.png" alt="Statcast Camera Layout" style="width: 45%; margin-left: 10px;">
 </div>
+<p style="text-align: center;">
+  Source: <a href="https://technology.mlblogs.com/introducing-statcast-2020-hawk-eye-and-google-cloud-a5f5c20321b8" target="_blank">MLB Technology Blog</a>
+</p>
 
 
 
@@ -220,7 +223,9 @@ pitching <- read.csv('QPitchingstats.csv')
 The fast-ball is a pitchers most used pitch, and as such, we decided to focus on the effects Statcast has had on the fast-ball.
 
 <img src="Pitch Mix.png" alt="Pitch Mix from 2008 to 2023" width="600">
-
+<p style="text-align: center;">
+  Source: <a href="https://blogs.fangraphs.com/a-league-wide-update-on-pitch-mix/" target="_blank">Fangraphs</a>
+</p>
 
 
 
