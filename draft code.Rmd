@@ -57,6 +57,11 @@ hitting %>%
 
 ```{r echo=FALSE}
 pitching <- read.csv('QPitchingstats.csv')
+<<<<<<< HEAD
+=======
+
+glimpse(pitching)        
+>>>>>>> 54b596733d893dc57eee182e54ae9d58eb0c0015
 ```
 
 # A graph of the boxplots for hard hitting percentage by year

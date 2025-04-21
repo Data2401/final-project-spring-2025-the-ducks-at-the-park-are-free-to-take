@@ -1,32 +1,420 @@
 ---
-title: "Jonathans_code"
-author: "Jonathan"
+title: "Jonathan's Section"
+author: "John Nobles, Adam Gullion, Jonathan Aguilar"
 date: "2025-04-15"
-output:
-  html_document:
-    df_print: paged
+output: slidy_presentation
 ---
 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r}
+hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#glimpse(hitting)
 
-```{r cars}
-summary(cars)
+#hitting %>% select(launch_angle_avg)
+
+hitting
 ```
 
-## Including Plots
+# Hit avarages over the years
+- We see slight decrease, but not much change.
+- Dip in 2020 due to covid.
 
-You can also embed plots, for example:
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(hit) %>% unlist() %>% mean()
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(hit) %>% unlist() %>% mean()
+
+Hits = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,Hits)
+
+# Plot
+ggplot(data,aes(x=years, y=Hits)) + scale_x_discrete(limits = years) + ylim(0,200) + geom_line()
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Launch angle average over the years
+- Refers to the average vertical angle at which their batted balls leave the bat.
+
+```{r}
+abs_2015 = hitting %>% 
+  filter(year == 2015) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2016 = hitting %>% 
+  filter(year == 2016) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2017 = hitting %>% 
+  filter(year == 2017) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2018 = hitting %>% 
+  filter(year == 2018) %>% select(launch_angle_avg) %>%  unlist() %>% mean()
+
+abs_2019 = hitting %>% 
+  filter(year == 2019) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2020 = hitting %>% 
+  filter(year == 2020) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2021 = hitting %>% 
+  filter(year == 2021) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2022 = hitting %>% 
+  filter(year == 2022) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2023 = hitting %>% 
+  filter(year == 2023) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2024 = hitting %>% 
+  filter(year == 2024) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+
+launch_angle_avg = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,launch_angle_avg)
+
+# Plot
+ggplot(data,aes(x=years, y=launch_angle_avg)) + ylab("Launch angle avarge") + scale_x_discrete(limits = years) + ylim(10,14) + geom_line()
+```
+
+# Flyball percentage over the years
+- Fly ball refers to a batted ball that travels on an arcing trajectory into the outfield.
+
+```{r}
+abs_2015 = hitting %>% 
+  filter(year == 2015) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2016 = hitting %>% 
+  filter(year == 2016) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2017 = hitting %>% 
+  filter(year == 2017) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2018 = hitting %>% 
+  filter(year == 2018) %>% select(flyballs_percent) %>%  unlist() %>% mean()
+
+abs_2019 = hitting %>% 
+  filter(year == 2019) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2020 = hitting %>% 
+  filter(year == 2020) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2021 = hitting %>% 
+  filter(year == 2021) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2022 = hitting %>% 
+  filter(year == 2022) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2023 = hitting %>% 
+  filter(year == 2023) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2024 = hitting %>% 
+  filter(year == 2024) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+
+flyballs_percent = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,flyballs_percent)
+
+# Plot
+ggplot(data,aes(x=years, y=flyballs_percent)) + ylab("Flyball percentage ") + scale_x_discrete(limits = years) + geom_line()
+
+```
+
+# Line drives percentage over the years
+- Line drives are batted balls that travel in a sharp, straight line with minimal arc, usually not far above the ground.
+
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+linedrives_percent = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,linedrives_percent)
+
+# Plot
+ggplot(data,aes(x=years, y=linedrives_percent)) + ylab("Line drives %") + scale_x_discrete(limits = years) + ylim(0,50) + geom_line()
+
+```
+
+
+
+# How is swing percentage effected over the years?
+- Swing percentage - The percentage of pitches the batter swings at, regardless if they hit or missed the ball.
+
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(swing_percent) %>% unlist() %>% mean()
+
+
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(swing_percent) %>% unlist() %>% mean()
+
+swing_percent = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,swing_percent)
+
+# Plot
+ggplot(data,aes(x=years, y=swing_percent)) + scale_x_discrete(limits = years) + ylab("Swing %") + ylim(0,100) + geom_line()
+```
+
+#
+
+```{r}
+hitting %>% filter(year == 2015)  %>% ggplot(aes(x = as.factor(player_id), y = exit_velocity_avg)) + geom_bar(stat = "identity")
+```
+
+#
+
+```{r}
+pitching <- read.csv('QPitchingstats.csv')
+
+pitching
+```
+
+#
+
+```{r}
+pitching %>% ggplot(aes(x = ff_avg_speed,y = ff_avg_spin)) + geom_point() + geom_smooth()
+```
+
+#
+
+```{r}
+
+pitching %>% ggplot(aes(x = sl_avg_speed, y = sl_avg_spin)) + geom_point() + geom_smooth()
+
+```
+
+#
+
+```{r}
+pitching %>% ggplot(aes(x = ch_avg_speed, y = ch_avg_spin)) + geom_point() + geom_smooth()
+```
+
+# Perfect (P) games avarage over the years
+- A perfect game occurs when a pitcher, or a series of pitchers, retires all 27 opposing batters without allowing any of them to reach base.
+
+```{r}
+abs_2015 = pitching %>% 
+  filter(year == 2015) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2016 = pitching %>% 
+  filter(year == 2016) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2017 = pitching %>% 
+  filter(year == 2017) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2018 = pitching %>% 
+  filter(year == 2018) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2019 = pitching %>% 
+  filter(year == 2019) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2020 = pitching %>% 
+  filter(year == 2020) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2021 = pitching %>% 
+  filter(year == 2021) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2022 = pitching %>% 
+  filter(year == 2022) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2023 = pitching %>% 
+  filter(year == 2023) %>% select(p_game) %>% unlist() %>% mean()
+
+abs_2024 = pitching %>% 
+  filter(year == 2024) %>% select(p_game) %>% unlist() %>% mean()
+
+p_game = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,p_game)
+
+# Plot
+ggplot(data,aes(x=years, y=p_game)) + scale_x_discrete(limits = years) + ylab("P game") + ylim(0,35) + geom_line()
+```
+
+# Four seam fast-ball (FF) spin rate avarage over the years
+- (FF) is a common type of pitch thrown by pitchers, characterized by its straight, forward movement.
+
+```{r}
+abs_2015 = pitching %>% 
+  filter(year == 2015) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2016 = pitching %>% 
+  filter(year == 2016) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2017 = pitching %>% 
+  filter(year == 2017) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2018 = pitching %>% 
+  filter(year == 2018) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2019 = pitching %>% 
+  filter(year == 2019) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2020 = pitching %>% 
+  filter(year == 2020) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2021 = pitching %>% 
+  filter(year == 2021) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2022 = pitching %>% 
+  filter(year == 2022) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2023 = pitching %>% 
+  filter(year == 2023) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2024 = pitching %>% 
+  filter(year == 2024) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+ffavgspin = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,ffavgspin)
+
+# Plot
+ggplot(data,aes(x=years, y=ffavgspin)) + scale_x_discrete(limits = years) + ylab("(FF) spin rate avarage") + ylim(0,3000) + geom_line()
+
+```
+
+
+# Change up (CH) avaerage spin rate over the years
+- The "CH" stands for change up, a type of pitch characterized by its low speed and tendency to move away from the hitter.
+
+```{r}
+abs_2015 = pitching %>% 
+  filter(year == 2015) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2016 = pitching %>% 
+  filter(year == 2016) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2017 = pitching %>% 
+  filter(year == 2017) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2018 = pitching %>% 
+  filter(year == 2018) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2019 = pitching %>% 
+  filter(year == 2019) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2020 = pitching %>% 
+  filter(year == 2020) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2021 = pitching %>% 
+  filter(year == 2021) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2022 = pitching %>% 
+  filter(year == 2022) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2023 = pitching %>% 
+  filter(year == 2023) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2024 = pitching %>% 
+  filter(year == 2024) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+ch_avg_spin = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,ch_avg_spin)
+
+# Plot
+ggplot(data,aes(x=years, y=ch_avg_spin)) + scale_x_discrete(limits = years) + ylab("(CH) avaerage spin rate") + ylim(0,3000) + geom_line()
+
+```
