@@ -1,5 +1,5 @@
 ---
-title: "John's Section"
+title: "Statcast: The Revolution of Statistics in Baseball"
 author: "John Nobles, Adam Gullion, Jonathan Aguilar"
 date: "`r Sys.Date()`"
 output: slidy_presentation
@@ -8,25 +8,275 @@ output: slidy_presentation
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
+library(gridExtra)
 ```
 
-# Variables of interest (hitting):
+# Introduction
 
--   launch angle (`launch_angle_avg`)
--   exit velocity (`exit_velocity_avg`)
--   hard-hit rate (`hard_hit_percent`)
--   barrel batted rate (`barrel_batted_rate`)
--   strikeout percentage (`k_percent`)
-- and more
+-Statcast is an automated camera tool that was developed by ChyronHego, Trackman, and MLB
 
-```{r include=FALSE}
+-It helps teams and players analyze work towards improving their athletic potential
+
+![Statcast Camera In an MLB Stadium](Stat%20cast%202%20electric%20boogaloo.png)
+
+# More about statcast
+
+-It was installed in all 30 MLB stadiums in 2015
+
+-Statcast has fundamentally changed the way the game of baseball is played as it introduced statistics that changed strategy all across MLB.
+
+![Statcast Camera Layout](Stat%20cast%20camera%20placement.png)
+
+[technology.mlbogs.com](https://technology.mlblogs.com/introducing-statcast-2020-hawk-eye-and-google-cloud-a5f5c20321b8)
+
+# Explanation of woba
+
+Before we talk about Statcast metrics about a players hitting philosphy, we need to talk about woba and xwobacon.
+
+The stat woba stands for weighted on base average.
+
+According to Fangraphs, a rule of thumb about woba is
+
+-Excellent .400
+
+-Above Average .340
+
+-Average .320
+
+``` {r echo=FALSE, message=FALSE}
 hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
+
+plot1 <- hitting %>%
+  ggplot(aes(flyballs_percent, woba)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Flyballs vs. WOBA", x = "Flyballs (%)", y = "WOBA") +
+  theme_minimal()
+
+plot2 <- hitting %>%
+  ggplot(aes(groundballs_percent, woba)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Groundballs vs. WOBA", x = "Groundballs (%)", y = "WOBA") +
+  theme_minimal()
+
+grid.arrange(plot1, plot2, ncol = 2)
+
+```
+
+# xwobacon
+
+The stat xwobacon stands for expected weighted on base average on contact. Think of it as the potental stat.
+
+```{r echo=FALSE, message=FALSE}
+plot_3 <-hitting %>% 
+  ggplot(aes(flyballs_percent, xwobacon)) +
+  geom_point() +
+  geom_smooth()
+
+plot_4 <-hitting %>% 
+  ggplot(aes(groundballs_percent, xwobacon)) +
+  geom_point() +
+  geom_smooth()
+
+grid.arrange(plot_3, plot_4, ncol = 2)
+```
+
+# Launch Angle
+
+Launch angle refers to how high or low a ball was hit in degrees.
+
+```{r echo=FALSE, message=FALSE}
+
+plot_5 <- hitting %>%
+  filter(year >= 2015, year <= 2024) %>%
+  group_by(year) %>%
+  summarize(avg_launch_angle = mean(launch_angle_avg)) %>%
+  ggplot(aes(x = factor(year), y = avg_launch_angle)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth(aes(group = 1), method = "loess") +
+  xlab("Year") +
+  ylab("Average Launch Angle")
+
+
+plot_6 <-hitting %>% 
+  ggplot(aes(launch_angle_avg, flyballs_percent)) +
+  geom_point() +
+  geom_smooth()
+
+plot_7 <-hitting %>% 
+  ggplot(aes(launch_angle_avg, groundballs_percent)) +
+  geom_point() +
+  geom_smooth()
+
+plot_8 <-hitting %>% 
+  ggplot(aes(launch_angle_avg, woba)) +
+  geom_point() +
+  geom_smooth()
+
+plot_9 <-hitting %>% 
+  ggplot(aes(launch_angle_avg, xwobacon)) +
+  geom_point() +
+  geom_smooth()
+
+grid.arrange(plot_5,  ncol = 1)
+grid.arrange(plot_6, plot_7, ncol = 2)
+grid.arrange(plot_8,plot_9, ncol = 2)
+```
+
+# Exit Velocity
+
+Exit Velocity stands for the speed in Mph a ball was hit by a batter.
+
+-Generally speaking, exit velocity isn't affected whether the hit ball was a ground or fly ball.
+
+```{r echo=FALSE, message=FALSE}
+plot_10 <-hitting %>% 
+  group_by(year) %>% 
+  summarize(avg_exitv=mean(exit_velocity_avg)) %>% 
+  ggplot(aes(year, avg_exitv)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+
+#
+plot_11 <-hitting %>% 
+  ggplot(aes(exit_velocity_avg, flyballs_percent)) +
+  geom_point() +
+  geom_smooth()
+#
+plot_12 <-hitting %>% 
+  ggplot(aes(exit_velocity_avg, groundballs_percent)) +
+  geom_point() +
+  geom_smooth()
+
+
+plot_13 <-hitting %>% 
+  ggplot(aes(exit_velocity_avg, woba)) +
+  geom_point() +
+  geom_smooth()
+
+plot_14 <-hitting %>% 
+  ggplot(aes(exit_velocity_avg, xwobacon)) +
+  geom_point() +
+  geom_smooth()
+
+grid.arrange(plot_10, ncol = 1)
+grid.arrange(plot_11, plot_12, ncol = 2)
+grid.arrange(plot_13, plot_14, ncol = 2)
+
+
+```
+
+# Limitations
+
+Limitations from the Statcast data set that we utilized is that it doesn't include bat-tracking data as it was only launched in the middle of 2023 and does not retroactively track for previous years.
+
+Futhermore, this Statcast data only includes qualified hitters in MLB and not in MiLB, NPB, KBO, or any other baseball leagues.
+
+# Variables of interest (pitching)
+
+-   fast ball average velocity (`ff_avg_speed`)
+-   fast ball spin (`ff_avg_spin`)
+-   strikeout percentage (`k_percent`)
+-   weighted on base average (`woba`)
+
+```{r echo=FALSE, message=FALSE}
 pitching <- read.csv('QPitchingstats.csv')
+
+#glimpse(pitching)
+```
+
+# The Importance of the Fast-Ball
+
+The fast-ball is a pitchers most used pitch, and as such, we decided to focus on the effects Statcast has had on the fast-ball.
+
+<img src="Pitch Mix.png" alt="Pitch Mix from 2008 to 2023" width="600"/>
+
+<p style="text-align: center;">
+
+Source: <a href="https://blogs.fangraphs.com/a-league-wide-update-on-pitch-mix/" target="_blank">Fangraphs</a>
+
+</p>
+
+# The Importance of Strikeouts and the Correlation of Fast-ball Quality in to Strikout Percentage
+
+Strikeouts are important to a pitchers plan to limit runs and as such, they work towards increasing their strikeout percentage in an effort to succeed.
+
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+
+plot_15 <-pitching %>% 
+  ggplot(aes(woba, k_percent)) +
+  geom_point() +
+  geom_smooth()
+
+plot_16 <-pitching %>% 
+  ggplot(aes(ff_avg_spin, k_percent)) +
+  geom_point() +
+  geom_smooth()
+
+plot_18 <-pitching %>% 
+  ggplot(aes(ff_avg_speed, k_percent)) +
+  geom_point() +
+  geom_smooth()
+
+grid.arrange(plot_15, ncol = 1)
+grid.arrange(plot_16,plot_18, ncol = 2)
+```
+
+# The Correlation Between Fast-ball quality, and woba
+
+Given that a higher strikeout percentage correlates to a lower woba, having a quality Fast-ball to increase strikeout percentage decreases the woba.
+
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+plot_19 <-pitching %>% 
+  ggplot(aes(ff_avg_speed, woba)) +
+  geom_point() +
+  geom_smooth()
+
+plot_20 <-pitching %>% 
+  ggplot(aes(ff_avg_spin, woba)) +
+  geom_point() +
+  geom_smooth()
+
+grid.arrange(plot_19,plot_20, ncol = 2)
+```
+
+# How Pitchers Illegally Increased Their Spin Rate
+
+Pitchers have always utilized foreign substances to put onto the baseball to get an advantage, however, with the introduction of spin rate, pitchers were able to more effectively optimize their ability to cheat.
+
+Pitchers utilized resin-based Spider Tack to illegally increase their spin rate
+
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+pitching %>%
+  filter(year >= 2015, year <= 2024) %>% 
+  group_by(year) %>%
+  summarize(k_percent = mean(k_percent)) %>%
+  ggplot(aes(x = factor(year), y = k_percent)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth(aes(group = 1), method = "loess") +
+  xlab("Year") +
+  ylab("Strikeout Percentage")
+
+ pitching %>%
+  filter(year >= 2015, year <= 2024) %>% 
+  group_by(year) %>%
+  summarize(ff_avg_spin = mean(ff_avg_spin, na.rm = TRUE)) %>%
+  ggplot(aes(x = factor(year), y = ff_avg_spin)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth(aes(group = 1), method = "loess") +
+  xlab("Year") +
+  ylab("Average Fastball Spin Rate")
 ```
 
 # Boxplots of strikeout percent by year
-- Increase in strikeout percentage from 2015 through 2020 (Spider tack)
-- 2 year decline after 2020 (crackdown on Spider tack)
+
+-   Increase in strikeout percentage from 2015 through 2020 (Spider tack)
+-   2 year decline after 2020 (crackdown on Spider tack)
 
 ```{r echo=FALSE}
 pitching %>% 
@@ -39,7 +289,8 @@ pitching %>%
 ```
 
 # Average strikeout by Year Trend Line
-- Taking a look at the average strikeout percentage by year and a trend line for this data, we can see how our analysis from the previous slide is backed up.
+
+-   Taking a look at the average strikeout percentage by year and a trend line for this data, we can see how our analysis from the previous slide is backed up.
 
 ```{r echo=FALSE}
 pitching %>% 
@@ -56,7 +307,8 @@ pitching %>%
 ```
 
 # A graph of the boxplots for hard hitting percentage by year
-- Layered on top (red dots) is the **average** hard hit percentage for each year.
+
+-   Layered on top (red dots) is the **average** hard hit percentage for each year.
 
 ```{r echo=FALSE}
 pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %>% 
@@ -88,8 +340,9 @@ pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %
 ```
 
 # A violin graph of this data.
-- We continue to see the upward trend in hard hit percentage
-- What's with the elongated violin in 2020? As sample size decreases, standard deviation increases!
+
+-   We continue to see the upward trend in hard hit percentage
+-   What's with the elongated violin in 2020? As sample size decreases, standard deviation increases!
 
 ```{r echo=FALSE}
 pitching %>% ggplot(aes(as.factor(year), hard_hit_percent,  fill=as.factor(year))) +
@@ -101,11 +354,22 @@ pitching %>% ggplot(aes(as.factor(year), hard_hit_percent,  fill=as.factor(year)
 ```
 
 # What is this correlation and how significant is it?
-- By conducting a linear regression model, on this data, we see:
+
+-   By conducting a linear regression model, on this data, we see:
 
 ```{r echo=FALSE}
 summary(lm(hard_hit_percent ~ year, data=hitting))
 ```
 
-- According to the model, hard hit percentage increased on average .75% per year.
-- This increase is associated with a very low p-value, indicating it is significant.
+-   According to the model, hard hit percentage increased on average .75% per year.
+-   This increase is associated with a very low p-value, indicating it is significant.
+
+# Limitations
+
+Limitations on the pitching side of baseball from the Statcast data set we used was that we only focused in on the fast-ball and didn't look into the spin rates or velocity from other pitches(ex curve-ball,slider,sweeper, etc).
+
+In addition, this Statcast data only includes qualified pitchers in MLB and not in MiLB, NPB, KBO, or any other baseball leagues.
+
+# Conclusion
+
+In conclusion, Statcast has changed the way the game of baseball is played, analyzed, and optimized through hitters optimizing Launch Angles, Exit Velocities, upon much more while pitchers focus more on Strikeout percentages, Fast-ball speed,& spin while using whatever possible to get an advantage.
