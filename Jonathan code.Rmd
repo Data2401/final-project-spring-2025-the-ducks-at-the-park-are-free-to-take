@@ -10,16 +10,9 @@ output: slidy_presentation
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 ```
-
-
 ```{r}
 hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
-
-#glimpse(hitting)
-
-#hitting %>% select(launch_angle_avg)
-
-hitting
+pitching <- read.csv('QPitchingstats.csv')
 ```
 
 # Hit avarages over the years
@@ -29,8 +22,6 @@ hitting
 ```{r}
 hits_2015 = hitting %>% 
   filter(year == 2015) %>% select(hit) %>% unlist() %>% mean()
-
-
 
 hits_2016 = hitting %>% 
   filter(year == 2016) %>% select(hit) %>% unlist() %>% mean()
@@ -65,7 +56,10 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,Hits)
 
 # Plot
-ggplot(data,aes(x=years, y=Hits)) + scale_x_discrete(limits = years) + ylim(0,200) + geom_line()
+
+suppressWarnings(
+  ggplot(data,aes(x=years, y=Hits)) + scale_x_discrete(limits = years) + ylim(0,200) + geom_line()
+)
 ```
 
 
@@ -111,7 +105,10 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,launch_angle_avg)
 
 # Plot
-ggplot(data,aes(x=years, y=launch_angle_avg)) + ylab("Launch angle avarge") + scale_x_discrete(limits = years) + ylim(10,14) + geom_line()
+
+suppressWarnings(
+  ggplot(data,aes(x=years, y=launch_angle_avg)) + ylab("Launch angle avarge") + scale_x_discrete(limits = years) + ylim(10,14) + geom_line()
+)
 ```
 
 # Flyball percentage over the years
@@ -156,8 +153,11 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,flyballs_percent)
 
 # Plot
-ggplot(data,aes(x=years, y=flyballs_percent)) + ylab("Flyball percentage ") + scale_x_discrete(limits = years) + geom_line()
 
+suppressWarnings(
+  ggplot(data,aes(x=years, y=flyballs_percent)) + ylab("Flyball percentage ") + scale_x_discrete(limits = years) + geom_line()
+
+)
 ```
 
 # Line drives percentage over the years
@@ -200,7 +200,9 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,linedrives_percent)
 
 # Plot
-ggplot(data,aes(x=years, y=linedrives_percent)) + ylab("Line drives %") + scale_x_discrete(limits = years) + ylim(0,50) + geom_line()
+suppressWarnings(
+  ggplot(data,aes(x=years, y=linedrives_percent)) + ylab("Line drives %") + scale_x_discrete(limits = years) + ylim(0,50) + geom_line()
+)
 
 ```
 
@@ -248,41 +250,33 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,swing_percent)
 
 # Plot
-ggplot(data,aes(x=years, y=swing_percent)) + scale_x_discrete(limits = years) + ylab("Swing %") + ylim(0,100) + geom_line()
+suppressWarnings(ggplot(data,aes(x=years, y=swing_percent)) + scale_x_discrete(limits = years) + ylab("Swing %") + ylim(0,100) + geom_line()
+)
+```
+
+
+# Four seam fast-ball speed vs. avarge spin correlation? 
+
+```{r, warning = FALSE, message = FALSE}
+  pitching %>% ggplot(aes(x = ff_avg_speed,y = ff_avg_spin)) + geom_point() + geom_smooth()
+
 ```
 
 #
 
-```{r}
-hitting %>% filter(year == 2015)  %>% ggplot(aes(x = as.factor(player_id), y = exit_velocity_avg)) + geom_bar(stat = "identity")
-```
+```{r, warning = FALSE, message = FALSE}
 
-#
-
-```{r}
-pitching <- read.csv('QPitchingstats.csv')
-
-pitching
-```
-
-#
-
-```{r}
-pitching %>% ggplot(aes(x = ff_avg_speed,y = ff_avg_spin)) + geom_point() + geom_smooth()
-```
-
-#
-
-```{r}
 
 pitching %>% ggplot(aes(x = sl_avg_speed, y = sl_avg_spin)) + geom_point() + geom_smooth()
 
+
 ```
 
 #
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 pitching %>% ggplot(aes(x = ch_avg_speed, y = ch_avg_spin)) + geom_point() + geom_smooth()
+
 ```
 
 # Perfect (P) games avarage over the years
@@ -325,7 +319,9 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,p_game)
 
 # Plot
-ggplot(data,aes(x=years, y=p_game)) + scale_x_discrete(limits = years) + ylab("P game") + ylim(0,35) + geom_line()
+suppressWarnings(
+  ggplot(data,aes(x=years, y=p_game)) + scale_x_discrete(limits = years) + ylab("P game") + ylim(0,35) + geom_line()
+)
 ```
 
 # Four seam fast-ball (FF) spin rate avarage over the years
@@ -369,7 +365,8 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,ffavgspin)
 
 # Plot
-ggplot(data,aes(x=years, y=ffavgspin)) + scale_x_discrete(limits = years) + ylab("(FF) spin rate avarage") + ylim(0,3000) + geom_line()
+suppressWarnings(ggplot(data,aes(x=years, y=ffavgspin)) + scale_x_discrete(limits = years) + ylab("(FF) spin rate avarage") + ylim(0,3000) + geom_line()
+                 )
 
 ```
 
@@ -415,6 +412,8 @@ years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 data <- data.frame(years,ch_avg_spin)
 
 # Plot
-ggplot(data,aes(x=years, y=ch_avg_spin)) + scale_x_discrete(limits = years) + ylab("(CH) avaerage spin rate") + ylim(0,3000) + geom_line()
+suppressWarnings(
+  ggplot(data,aes(x=years, y=ch_avg_spin)) + scale_x_discrete(limits = years) + ylab("(CH) avaerage spin rate") + ylim(0,3000) + geom_line()
+)
 
 ```
