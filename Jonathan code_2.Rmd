@@ -58,8 +58,7 @@ data <- data.frame(years,Hits)
 # Plot
 
 suppressWarnings(
-  ggplot(data,aes(x=years, y=Hits)) + scale_x_discrete(limits = years) + ylim(0,200) + geom_line()
-)
+  ggplot(data,aes(x=years, y=Hits)) + scale_x_discrete(limits = years) + ylim(0,200) + geom_line())
 ```
 
 
