@@ -10,6 +10,24 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 ```
 
+# Introduction
+
+-Statcast is an automated camera tool that was developed by ChyronHego, Trackman, and MLB
+
+-It helps teams and players analyze work towards improving their athletic potential
+
+![Statcast Camera In an MLB Stadium](Stat%20cast%202%20electric%20boogaloo.png)
+
+# More about statcast
+
+-It was installed in all 30 MLB stadiums in 2015
+
+-Statcast has fundamentally changed the way the game of baseball is played as it introduced statistics that changed strategy all across MLB.
+
+![Statcast Camera Layout](Stat%20cast%20camera%20placement.png)
+
+[technology.mlbogs.com](https://technology.mlblogs.com/introducing-statcast-2020-hawk-eye-and-google-cloud-a5f5c20321b8)
+
 # Variables of interest (hitting):
 
 -   launch angle (`launch_angle_avg`)
@@ -17,7 +35,7 @@ library(tidyverse)
 -   hard-hit rate (`hard_hit_percent`)
 -   barrel batted rate (`barrel_batted_rate`)
 -   strikeout percentage (`k_percent`)
-- and more
+-   and more
 
 ```{r include=FALSE}
 hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
@@ -25,8 +43,9 @@ pitching <- read.csv('QPitchingstats.csv')
 ```
 
 # Boxplots of strikeout percent by year
-- Increase in strikeout percentage from 2015 through 2020 (Spider tack)
-- 2 year decline after 2020 (crackdown on Spider tack)
+
+-   Increase in strikeout percentage from 2015 through 2020 (Spider tack)
+-   2 year decline after 2020 (crackdown on Spider tack)
 
 ```{r echo=FALSE}
 pitching %>% 
@@ -39,7 +58,8 @@ pitching %>%
 ```
 
 # Average strikeout by Year Trend Line
-- Taking a look at the average strikeout percentage by year and a trend line for this data, we can see how our analysis from the previous slide is backed up.
+
+-   Taking a look at the average strikeout percentage by year and a trend line for this data, we can see how our analysis from the previous slide is backed up.
 
 ```{r echo=FALSE}
 pitching %>% 
@@ -56,7 +76,8 @@ pitching %>%
 ```
 
 # A graph of the boxplots for hard hitting percentage by year
-- Layered on top (red dots) is the **average** hard hit percentage for each year.
+
+-   Layered on top (red dots) is the **average** hard hit percentage for each year.
 
 ```{r echo=FALSE}
 pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %>% 
@@ -88,8 +109,9 @@ pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %
 ```
 
 # A violin graph of this data.
-- We continue to see the upward trend in hard hit percentage
-- What's with the elongated violin in 2020? As sample size decreases, standard deviation increases!
+
+-   We continue to see the upward trend in hard hit percentage
+-   What's with the elongated violin in 2020? As sample size decreases, standard deviation increases!
 
 ```{r echo=FALSE}
 pitching %>% ggplot(aes(as.factor(year), hard_hit_percent,  fill=as.factor(year))) +
@@ -101,11 +123,22 @@ pitching %>% ggplot(aes(as.factor(year), hard_hit_percent,  fill=as.factor(year)
 ```
 
 # What is this correlation and how significant is it?
-- By conducting a linear regression model, on this data, we see:
+
+-   By conducting a linear regression model, on this data, we see:
 
 ```{r echo=FALSE}
 summary(lm(hard_hit_percent ~ year, data=hitting))
 ```
 
-- According to the model, hard hit percentage increased on average .75% per year.
-- This increase is associated with a very low p-value, indicating it is significant.
+-   According to the model, hard hit percentage increased on average .75% per year.
+-   This increase is associated with a very low p-value, indicating it is significant.
+
+# Limitations
+
+Limitations on the pitching side of baseball from the Statcast data set we used was that we only focused in on the fast-ball and didn't look into the spin rates or velocity from other pitches(ex curve-ball,slider,sweeper, etc).
+
+In addition, this Statcast data only includes qualified pitchers in MLB and not in MiLB, NPB, KBO, or any other baseball leagues.
+
+# Conclusion
+
+In conclusion, Statcast has changed the way the game of baseball is played, analyzed, and optimized through hitters optimizing Launch Angles, Exit Velocities, upon much more while pitchers focus more on Strikeout percentages, Fast-ball speed,& spin while using whatever possible to get an advantage.
