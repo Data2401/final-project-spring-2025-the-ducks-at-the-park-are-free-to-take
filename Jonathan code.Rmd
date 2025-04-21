@@ -254,6 +254,12 @@ ggplot(data,aes(x=years, y=swing_percent)) + scale_x_discrete(limits = years) + 
 #
 
 ```{r}
+hitting %>% filter(year == 2015)  %>% ggplot(aes(x = as.factor(player_id), y = exit_velocity_avg)) + geom_bar(stat = "identity")
+```
+
+#
+
+```{r}
 pitching <- read.csv('QPitchingstats.csv')
 
 pitching
