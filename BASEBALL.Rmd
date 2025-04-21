@@ -26,9 +26,9 @@ library(stringr)
 ```{r}
 hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
 
-#glimpse(hitting)
+# glimpse(hitting)
 
-#hitting %>% select(launch_angle_avg)
+# hitting %>% select(launch_angle_avg)
 ```
 
 # a
