@@ -265,6 +265,25 @@ pitching <- read.csv('QPitchingstats.csv')
 pitching
 ```
 
+#
+
+```{r}
+pitching %>% ggplot(aes(x = ff_avg_speed,y = ff_avg_spin)) + geom_point() + geom_smooth()
+```
+
+#
+
+```{r}
+
+pitching %>% ggplot(aes(x = sl_avg_speed, y = sl_avg_spin)) + geom_point() + geom_smooth()
+
+```
+
+#
+
+```{r}
+pitching %>% ggplot(aes(x = ch_avg_speed, y = ch_avg_spin)) + geom_point() + geom_smooth()
+```
 
 # Perfect (P) games avarage over the years
 - A perfect game occurs when a pitcher, or a series of pitchers, retires all 27 opposing batters without allowing any of them to reach base.
