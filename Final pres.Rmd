@@ -2,7 +2,9 @@
 title: "Statcast: The Revolution of Statistics in Baseball"
 author: "John Nobles, Adam Gullion, Jonathan Aguilar"
 date: "`r Sys.Date()`"
-output: slidy_presentation
+output: 
+  slidy_presentation:
+    theme: cerulean
 ---
 
 ```{r setup, include=FALSE}
@@ -27,7 +29,7 @@ library(gridExtra)
 
 ![Statcast Camera Layout](Stat%20cast%20camera%20placement.png)
 
-[technology.mlbogs.com](https://technology.mlblogs.com/introducing-statcast-2020-hawk-eye-and-google-cloud-a5f5c20321b8)
+[technology.mlblogs.com](https://technology.mlblogs.com/introducing-statcast-2020-hawk-eye-and-google-cloud-a5f5c20321b8)
 
 # Explanation of woba
 
@@ -51,14 +53,14 @@ plot1 <- hitting %>%
   geom_point() +
   geom_smooth() +
   labs(title = "Flyballs vs. WOBA", x = "Flyballs (%)", y = "WOBA") +
-  theme_minimal()
+  theme_test()
 
 plot2 <- hitting %>%
   ggplot(aes(groundballs_percent, woba)) +
   geom_point() +
   geom_smooth() +
   labs(title = "Groundballs vs. WOBA", x = "Groundballs (%)", y = "WOBA") +
-  theme_minimal()
+  theme_test()
 
 grid.arrange(plot1, plot2, ncol = 2)
 
@@ -66,18 +68,20 @@ grid.arrange(plot1, plot2, ncol = 2)
 
 # xwobacon
 
-The stat xwobacon stands for expected weighted on base average on contact. Think of it as the potental stat.
+The stat xwobacon stands for expected weighted on base average on contact. Think of it as the potential stat.
 
 ```{r echo=FALSE, message=FALSE}
 plot_3 <-hitting %>% 
   ggplot(aes(flyballs_percent, xwobacon)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_4 <-hitting %>% 
   ggplot(aes(groundballs_percent, xwobacon)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 grid.arrange(plot_3, plot_4, ncol = 2)
 ```
@@ -94,7 +98,7 @@ plot_5 <- hitting %>%
   summarize(avg_launch_angle = mean(launch_angle_avg)) %>%
   ggplot(aes(x = factor(year), y = avg_launch_angle)) +
   geom_point() +
-  theme_minimal() +
+  theme_test() +
   geom_smooth(aes(group = 1), method = "loess") +
   xlab("Year") +
   ylab("Average Launch Angle")
@@ -103,22 +107,26 @@ plot_5 <- hitting %>%
 plot_6 <-hitting %>% 
   ggplot(aes(launch_angle_avg, flyballs_percent)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_7 <-hitting %>% 
   ggplot(aes(launch_angle_avg, groundballs_percent)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_8 <-hitting %>% 
   ggplot(aes(launch_angle_avg, woba)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_9 <-hitting %>% 
   ggplot(aes(launch_angle_avg, xwobacon)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 grid.arrange(plot_5,  ncol = 1)
 grid.arrange(plot_6, plot_7, ncol = 2)
@@ -137,30 +145,35 @@ plot_10 <-hitting %>%
   summarize(avg_exitv=mean(exit_velocity_avg)) %>% 
   ggplot(aes(year, avg_exitv)) +
   geom_point() +
-  theme_minimal() +
+  scale_x_continuous(breaks=2015:2024) +
+  theme_test() +
   geom_smooth()
 
 #
 plot_11 <-hitting %>% 
   ggplot(aes(exit_velocity_avg, flyballs_percent)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 #
 plot_12 <-hitting %>% 
   ggplot(aes(exit_velocity_avg, groundballs_percent)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 
 plot_13 <-hitting %>% 
   ggplot(aes(exit_velocity_avg, woba)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_14 <-hitting %>% 
   ggplot(aes(exit_velocity_avg, xwobacon)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 grid.arrange(plot_10, ncol = 1)
 grid.arrange(plot_11, plot_12, ncol = 2)
@@ -168,12 +181,6 @@ grid.arrange(plot_13, plot_14, ncol = 2)
 
 
 ```
-
-# Limitations
-
-Limitations from the Statcast data set that we utilized is that it doesn't include bat-tracking data as it was only launched in the middle of 2023 and does not retroactively track for previous years.
-
-Futhermore, this Statcast data only includes qualified hitters in MLB and not in MiLB, NPB, KBO, or any other baseball leagues.
 
 # Variables of interest (pitching)
 
@@ -190,7 +197,7 @@ pitching <- read.csv('QPitchingstats.csv')
 
 # The Importance of the Fast-Ball
 
-The fast-ball is a pitchers most used pitch, and as such, we decided to focus on the effects Statcast has had on the fast-ball.
+The fast-ball is a pitcher's most used pitch, and as such, we decided to focus on the effects Statcast has had on the fast-ball.
 
 <img src="Pitch Mix.png" alt="Pitch Mix from 2008 to 2023" width="600"/>
 
@@ -209,23 +216,26 @@ Strikeouts are important to a pitchers plan to limit runs and as such, they work
 plot_15 <-pitching %>% 
   ggplot(aes(woba, k_percent)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_16 <-pitching %>% 
   ggplot(aes(ff_avg_spin, k_percent)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_18 <-pitching %>% 
   ggplot(aes(ff_avg_speed, k_percent)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 grid.arrange(plot_15, ncol = 1)
 grid.arrange(plot_16,plot_18, ncol = 2)
 ```
 
-# The Correlation Between Fast-ball quality, and woba
+# The Correlation Between Fast-ball quality and woba
 
 Given that a higher strikeout percentage correlates to a lower woba, having a quality Fast-ball to increase strikeout percentage decreases the woba.
 
@@ -233,19 +243,21 @@ Given that a higher strikeout percentage correlates to a lower woba, having a qu
 plot_19 <-pitching %>% 
   ggplot(aes(ff_avg_speed, woba)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 plot_20 <-pitching %>% 
   ggplot(aes(ff_avg_spin, woba)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_test()
 
 grid.arrange(plot_19,plot_20, ncol = 2)
 ```
 
 # How Pitchers Illegally Increased Their Spin Rate
 
-Pitchers have always utilized foreign substances to put onto the baseball to get an advantage, however, with the introduction of spin rate, pitchers were able to more effectively optimize their ability to cheat.
+Pitchers have always utilized foreign substances to put onto the baseball to get an advantage. However, with the introduction of spin rate, pitchers were able to more effectively optimize their ability to cheat.
 
 Pitchers utilized resin-based Spider Tack to illegally increase their spin rate
 
@@ -256,7 +268,7 @@ pitching %>%
   summarize(k_percent = mean(k_percent)) %>%
   ggplot(aes(x = factor(year), y = k_percent)) +
   geom_point() +
-  theme_minimal() +
+  theme_test() +
   geom_smooth(aes(group = 1), method = "loess") +
   xlab("Year") +
   ylab("Strikeout Percentage")
@@ -267,7 +279,7 @@ pitching %>%
   summarize(ff_avg_spin = mean(ff_avg_spin, na.rm = TRUE)) %>%
   ggplot(aes(x = factor(year), y = ff_avg_spin)) +
   geom_point() +
-  theme_minimal() +
+  theme_test() +
   geom_smooth(aes(group = 1), method = "loess") +
   xlab("Year") +
   ylab("Average Fastball Spin Rate")
@@ -308,13 +320,13 @@ pitching %>%
 
 # A graph of the boxplots for hard hitting percentage by year
 
--   Layered on top (red dots) is the **average** hard hit percentage for each year.
+-   Layered on top (purple dots) is the **average** hard hit percentage for each year.
 
 ```{r echo=FALSE}
 pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %>% 
   ggplot(aes(as.factor(year), hard_hit_percent)) + 
   geom_boxplot() + 
-  geom_point(aes(as.factor(year), avg_hhp_by_year), color='red') +
+  geom_point(aes(as.factor(year), avg_hhp_by_year), color='purple') +
   theme_test() +
   labs(title='Hard hitting percentage by year',
        x='Year',
@@ -328,7 +340,7 @@ pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %
 ```{r echo=FALSE}
 pitching %>% group_by(year) %>% mutate(avg_hhp_by_year=mean(hard_hit_percent)) %>% 
   ggplot(aes(year, avg_hhp_by_year)) +
-  geom_point() +
+  geom_point(color='purple') +
   geom_smooth(formula='y ~ x', method='lm') +
   theme_test() +
   labs(title='Hard hitting percentage by year',
@@ -350,7 +362,8 @@ pitching %>% ggplot(aes(as.factor(year), hard_hit_percent,  fill=as.factor(year)
   theme_test() +
   labs(title='HH% over Time',
        x='Year',
-       y='Hard Hit %')
+       y='Hard Hit %',
+       fill='Year')
 ```
 
 # What is this correlation and how significant is it?
@@ -364,11 +377,354 @@ summary(lm(hard_hit_percent ~ year, data=hitting))
 -   According to the model, hard hit percentage increased on average .75% per year.
 -   This increase is associated with a very low p-value, indicating it is significant.
 
+# Hit averages over the years
+
+- We see slight decrease, but not much change.
+- Dip in 2020 due to covid.
+
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(hit) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(hit) %>% unlist() %>% mean()
+
+Hits = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,Hits)
+
+# Plot
+
+suppressWarnings(
+  ggplot(data,aes(x=years, y=Hits)) + scale_x_discrete(limits = years) + ylim(0,200) + geom_line() + theme_test()
+)
+```
+
+
+# Launch angle average over the years
+- Refers to the average vertical angle at which their batted balls leave the bat.
+
+```{r}
+abs_2015 = hitting %>% 
+  filter(year == 2015) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2016 = hitting %>% 
+  filter(year == 2016) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2017 = hitting %>% 
+  filter(year == 2017) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2018 = hitting %>% 
+  filter(year == 2018) %>% select(launch_angle_avg) %>%  unlist() %>% mean()
+
+abs_2019 = hitting %>% 
+  filter(year == 2019) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2020 = hitting %>% 
+  filter(year == 2020) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2021 = hitting %>% 
+  filter(year == 2021) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2022 = hitting %>% 
+  filter(year == 2022) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2023 = hitting %>% 
+  filter(year == 2023) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+abs_2024 = hitting %>% 
+  filter(year == 2024) %>% select(launch_angle_avg) %>% unlist() %>% mean()
+
+
+launch_angle_avg = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,launch_angle_avg)
+
+# Plot
+
+suppressWarnings(
+  ggplot(data,aes(x=years, y=launch_angle_avg)) + ylab("Launch angle avarge") + scale_x_discrete(limits = years) + ylim(10,14) + geom_line() + theme_test()
+)
+```
+
+# Flyball percentage over the years
+- Fly ball refers to a batted ball that travels on an arcing trajectory into the outfield.
+
+```{r}
+abs_2015 = hitting %>% 
+  filter(year == 2015) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2016 = hitting %>% 
+  filter(year == 2016) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2017 = hitting %>% 
+  filter(year == 2017) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2018 = hitting %>% 
+  filter(year == 2018) %>% select(flyballs_percent) %>%  unlist() %>% mean()
+
+abs_2019 = hitting %>% 
+  filter(year == 2019) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2020 = hitting %>% 
+  filter(year == 2020) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2021 = hitting %>% 
+  filter(year == 2021) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2022 = hitting %>% 
+  filter(year == 2022) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2023 = hitting %>% 
+  filter(year == 2023) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+abs_2024 = hitting %>% 
+  filter(year == 2024) %>% select(flyballs_percent) %>% unlist() %>% mean()
+
+
+flyballs_percent = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,flyballs_percent)
+
+# Plot
+
+suppressWarnings(
+  ggplot(data,aes(x=years, y=flyballs_percent)) + ylab("Flyball percentage ") + scale_x_discrete(limits = years) + geom_line() + theme_test()
+
+)
+```
+
+# Line drives percentage over the years
+- Line drives are batted balls that travel in a sharp, straight line with minimal arc, usually not far above the ground.
+
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(linedrives_percent) %>% unlist() %>% mean()
+
+linedrives_percent = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,linedrives_percent)
+
+# Plot
+suppressWarnings(
+  ggplot(data,aes(x=years, y=linedrives_percent)) + ylab("Line drives %") + scale_x_discrete(limits = years) + ylim(0,50) + geom_line() + theme_test()
+)
+
+```
+
+
+
+# How is swing percentage affected over the years?
+- Swing percentage - The percentage of pitches the batter swings at, regardless of if they hit or miss the ball.
+
+```{r}
+hits_2015 = hitting %>% 
+  filter(year == 2015) %>% select(swing_percent) %>% unlist() %>% mean()
+
+
+
+hits_2016 = hitting %>% 
+  filter(year == 2016) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2017 = hitting %>% 
+  filter(year == 2017) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2018 = hitting %>% 
+  filter(year == 2018) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2019 = hitting %>% 
+  filter(year == 2019) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2020 = hitting %>% 
+  filter(year == 2020) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2021 = hitting %>% 
+  filter(year == 2021) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2022 = hitting %>% 
+  filter(year == 2022) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2023 = hitting %>% 
+  filter(year == 2023) %>% select(swing_percent) %>% unlist() %>% mean()
+
+hits_2024 = hitting %>% 
+  filter(year == 2024) %>% select(swing_percent) %>% unlist() %>% mean()
+
+swing_percent = c(hits_2015,hits_2016,hits_2017,hits_2018,hits_2019,hits_2020,hits_2021,hits_2022,hits_2023,hits_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+data <- data.frame(years,swing_percent)
+
+# Plot
+suppressWarnings(ggplot(data,aes(x=years, y=swing_percent)) + scale_x_discrete(limits = years) + ylab("Swing %") + ylim(0,100) + geom_line() + theme_test()
+)
+```
+
+
+# Four seam fast-ball speed vs. average spin correlation? 
+
+```{r, warning = FALSE, message = FALSE}
+  pitching %>% ggplot(aes(x = ff_avg_speed,y = ff_avg_spin)) + geom_point() + geom_smooth() + labs(x='Average speed (FF)', y='Average spin rate (FF)') + theme_test()
+
+```
+
+# Four seam fast-ball (FF) spin rate average over the years
+
+- (FF) is a common type of pitch thrown by pitchers, characterized by its straight, forward movement.
+
+```{r}
+abs_2015 = pitching %>% 
+  filter(year == 2015) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2016 = pitching %>% 
+  filter(year == 2016) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2017 = pitching %>% 
+  filter(year == 2017) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2018 = pitching %>% 
+  filter(year == 2018) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2019 = pitching %>% 
+  filter(year == 2019) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2020 = pitching %>% 
+  filter(year == 2020) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2021 = pitching %>% 
+  filter(year == 2021) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2022 = pitching %>% 
+  filter(year == 2022) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2023 = pitching %>% 
+  filter(year == 2023) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+abs_2024 = pitching %>% 
+  filter(year == 2024) %>% select(ff_avg_spin) %>% filter(!is.na(ff_avg_spin)) %>% unlist() %>% mean()
+
+ffavgspin = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,ffavgspin)
+
+# Plot
+suppressWarnings(ggplot(data,aes(x=years, y=ffavgspin)) + scale_x_discrete(limits = years) + ylab("(FF) spin rate avarage") + ylim(0,3000) + geom_line() + theme_test()
+                 )
+
+```
+
+
+# Change up (CH) average spin rate over the years
+- The "CH" stands for change up, a type of pitch characterized by its low speed and tendency to move away from the hitter.
+
+```{r}
+abs_2015 = pitching %>% 
+  filter(year == 2015) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2016 = pitching %>% 
+  filter(year == 2016) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2017 = pitching %>% 
+  filter(year == 2017) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2018 = pitching %>% 
+  filter(year == 2018) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2019 = pitching %>% 
+  filter(year == 2019) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2020 = pitching %>% 
+  filter(year == 2020) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2021 = pitching %>% 
+  filter(year == 2021) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2022 = pitching %>% 
+  filter(year == 2022) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2023 = pitching %>% 
+  filter(year == 2023) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+abs_2024 = pitching %>% 
+  filter(year == 2024) %>% select(ch_avg_spin) %>% filter(!is.na(ch_avg_spin)) %>% unlist() %>% mean()
+
+ch_avg_spin = c(abs_2015,abs_2016,abs_2017,abs_2018,abs_2019,abs_2020,abs_2021,abs_2022,abs_2023,abs_2024)
+years = c(2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
+
+
+data <- data.frame(years,ch_avg_spin)
+
+# Plot
+suppressWarnings(
+  ggplot(data,aes(x=years, y=ch_avg_spin)) + scale_x_discrete(limits = years) + ylab("(CH) avaerage spin rate") + ylim(0,3000) + geom_line() + theme_test()
+)
+
+```
+
 # Limitations
 
-Limitations on the pitching side of baseball from the Statcast data set we used was that we only focused in on the fast-ball and didn't look into the spin rates or velocity from other pitches(ex curve-ball,slider,sweeper, etc).
+Limitations from the Statcast data set that we utilized is that it doesn't include bat-tracking data as it was only launched in the middle of 2023 and does not retroactively track for previous years.
 
-In addition, this Statcast data only includes qualified pitchers in MLB and not in MiLB, NPB, KBO, or any other baseball leagues.
+Futhermore, this Statcast data only includes qualified hitters in MLB and not in MiLB, NPB, KBO, or any other baseball leagues.
 
 # Conclusion
 
