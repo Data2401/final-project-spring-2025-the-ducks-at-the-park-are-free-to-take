@@ -204,13 +204,9 @@ pitching <- read.csv('QPitchingstats.csv')
 
 The fast-ball is a pitcher's most used pitch, and as such, we decided to focus on the effects Statcast has had on the fast-ball.
 
-<img src="Pitch Mix.png" alt="Pitch Mix from 2008 to 2023" width="600"/>
+![Pitch Mix from 2008 to 2023](Pitch%20Mix.png)
 
-<p style="text-align: center;">
-
-Source: <a href="https://blogs.fangraphs.com/a-league-wide-update-on-pitch-mix/" target="_blank">Fangraphs</a>
-
-</p>
+[Fangraphs](https://blogs.fangraphs.com/a-league-wide-update-on-pitch-mix/)
 
 # The Importance of Strikeouts and the Correlation of Fast-ball Quality in to Strikout Percentage
 
