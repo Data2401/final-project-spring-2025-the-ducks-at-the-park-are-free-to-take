@@ -10,4 +10,8 @@ All other .Rmd's and .html's are code drafts and not a part of the final present
 - 'Homework 7-project plan.Rmd' and .html contain a brief overview of our initial plan for the project.
 - 'QPitchingstats.csv' contains the data used for pitching analysis and 'Qualified Hitting 2015-2024stats.csv' contains the data used for hitting analysis.
 - 'figuring out theme.Rmd' and .html contain presentation theme experimentation.
+<<<<<<< HEAD
 - 'Baseball 2 (Adam Code)' '.RmdBASEBALL.Rmd' and .html, 'draft code.Rmd' and .html, and 'Jonathan code.Rmd' and .html all contain drafts of code and exploratory data analysis and visualization. 
+=======
+- 'Baseball 2 (Adam Code)'  '.RmdBASEBALL.Rmd' and .html, 'draft code.Rmd' and .html, and 'Jonathan code.Rmd' and .html all contain drafts of code and exploratory data analysis and visualization. 
+>>>>>>> 7b43a573e53034773c68804113d7e74944bdfbd1
