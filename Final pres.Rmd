@@ -50,7 +50,7 @@ According to Fangraphs, a rule of thumb about woba is
 
 -Average .320
 
-``` {r echo=FALSE, message=FALSE}
+```{r echo=FALSE, message=FALSE}
 hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
 
 plot1 <- hitting %>%
@@ -381,8 +381,6 @@ summary(lm(hard_hit_percent ~ year, data=hitting))
 
 -   According to the model, hard hit percentage increased on average .75% per year.
 -   This increase is associated with a very low p-value, indicating it is significant.
-
-
 
 # Limitations
 
