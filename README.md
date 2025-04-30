@@ -8,3 +8,4 @@ Access the final presentation at 'Final pres.Rmd' and 'Final pres.html'.
 [Pitch Mix.png](https://blogs.fangraphs.com/a-league-wide-update-on-pitch-mix/) <br>
 [Stat cast 2 electric boogaloo.png](https://technology.mlblogs.com/introducing-statcast-2020-hawk-eye-and-google-cloud-a5f5c20321b8) <br>
 [Stat cast camera placement.png](https://technology.mlblogs.com/introducing-statcast-2020-hawk-eye-and-google-cloud-a5f5c20321b8) <br>
+[Stat cast](https://baseballsavant.mlb.com/statcast_search)
