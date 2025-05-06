@@ -3,6 +3,7 @@
 
 # What to access?
 Access the final presentation at 'Final pres.Rmd' and 'Final pres.html'.
+See a detailed report of our work at 'Final report.html'.
 
 # Links to sources:
 [Pitch Mix.png](https://blogs.fangraphs.com/a-league-wide-update-on-pitch-mix/) <br>
