@@ -10,12 +10,16 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
-library(magrittr)
 library(ggplot2)
-library(gapminder)
 library(ggthemes)
-library(stringr)
 library(gridExtra)
+
+# We did not install tidyverse because it does not cooperate with Adam's computer.
+# We used dplyr for analyzing our data (summarize, filter, etc.) before using
+# ggplot2 to plot our data
+# we used ggthemes to test out themes that weren't in base R and ended up using theme_test()
+# we used gridExtra for its grid.arrange() function which allows us to position our plots
+# side by side and however we wanted to customize them to appear on the presentation
 ```
 
 # Introduction
