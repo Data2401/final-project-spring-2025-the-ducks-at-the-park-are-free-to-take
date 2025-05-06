@@ -1,0 +1,97 @@
+---
+title: "Final report"
+author: "John Nobles, Adam Gullion, Jonathan Aguilar"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    theme: readable
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+**What is our Data**
+
+Starting in 2015, Statcast, a camera-based tool which captured in-game data of Major League Baseball (MLB) players like pitching speed and strikeout percentage, was introduced to all 30 MLB stadiums.
+Statcast has fundamentally changed the way the game of baseball is played and changed how players are evaluated as a whole.
+Our team worked on this project with the goal of analyzing some of the ways Statcast has changed how teams and players approach the game.
+
+To examine the change, our team utilized 2 datasets–one for statistics on the pitching side and one for the hitting side–from <https://baseballsavant.mlb.com>, the official Statcast website that contains the data related to Statcast.
+To evaluate and interpret the data, we used R to compare, contrast, and display the data with line graphs, box plots, violin graphs, etc.
+
+The way we decided to approach the dataset was to investigate the impact of certain Statcast data over the years since Statcast was introduced and observe changes to different variables.
+To avoid large variance over the data set, we decided not to analyze player-to-player performance over the years, but instead go off the average of all qualified players (the term "qualified" meaning that the player demonstrated roughly 502 plate appearances as a hitter or 162 innings pitched as a pitcher) to observe changes.
+By analyzing the average data from qualified hitters and pitchers over the years, we avoid most outlier data and can evaluate how Statcast has changed players’ and teams’ strategy in the game of baseball.
+
+**Packages Required**
+
+We utilized the `Tidyverse` and `gridExtra` packages to analyze our data.
+However, one of our members couldn’t download the `Tidyverse` package correctly and, as such, downloaded the included packages in `Tidyverse` separately.
+Additionally, we used the `ggthemes` package to find a simplistic theme for our plots.
+
+**Data Preparation**
+
+We obtained both the hitting and pitching data from the statistics section of <https://baseballsavant.mlb.com/>.
+We customized it to include the variables we felt we could properly analyze over the years of 2015-2024.
+Both the pitching and hitting datasets contain over 1000 rows (individual players) and over 60 columns (variables of interest).
+As such, we can’t properly show every variable we decided to have in the dataset.
+The data was collected automatically by the cameras around all 30 stadiums from every MLB regular season game from 2015 to 2024.
+
+We downloaded the data from Baseball Savant in two separate CSV files for easy use within R.
+As previously mentioned, due to the nature of baseball, our data is split between hitting and pitching statistics, hence each CSV file was specified for hitting or pitching.
+Once downloaded, we uploaded it to our main GitHub for our project so that we can utilize it while coding.
+Once imported to the GitHub, we assigned each CSV to its respective section of data within a coding block:
+
+```{r}
+hitting <- read.csv('Qualified Hitting 2015-2024stats.csv')
+pitching <- read.csv('QPitchingstats.csv')
+```
+
+After proper importing, we were able to use the data within R Studio to properly analyze our data.
+Here's a glimpse into the data we worked with (only displays select variables):
+
+**Hitting dataset**
+
+```{r echo=FALSE}
+hitting %>% select(last_name..first_name, k_percent, exit_velocity_avg, hard_hit_percent)  %>% head(8)
+```
+
+**Pitching dataset**
+
+```{r echo=FALSE}
+pitching %>% select(last_name..first_name, woba, xwobacon, ff_avg_speed) %>% head(8)
+```
+
+**Variables of Interest**
+
+The main variables we decided to use in the final product are `last_name..first_name`, `year`, `k_percent`, `woba`, `xwobacon`, `exit_velocity_avg`, `launch_angle_avg`, `hard_hit_percent`, `groundballs_percent`, `flyballs_percent`, `ff_avg_speed`, and `ff_avg_spin`.
+
+-   The `last_name..first_name` variable stands for the last name and first name of every player on the list.
+    In itself, it isn’t helpful, but it is helpful in attaching a name to specific numbers in a variable.
+
+-   `k_percent` refers to the percentage a pitcher strikes out the batter they face or the percentage a hitter strikes out against a pitcher.
+    It depends on which version of the dataset we are using on which version of `k_percent` it is.
+
+-   The stat `woba` stands for weighted on-base average.
+    It is a version of on-base percentage that accounts for how a player reached base.
+    It values singles over walks, doubles over singles, and so on.
+
+-   The stat `xwobacon` stands for expected weighted on-base average on contact.
+    Think of it as the potential stat.
+    It looks a player’s `woba` in instances where they made contact with the ball and nothing else, it doesn’t account for walks, HBP, etc.
+    It evaluates the quality of contact by a hitter.
+    Launch angle refers to how high or low a ball was hit in degrees.
+    This stat helps analyze the optimization of the launch angle over the years.
+
+-   Exit Velocity (`exit_velocity_avg`) stands for the speed in MPH at which a ball is hit by a batter.
+    A higher exit velocity generally means a higher probability of a batted ball being a hit, and as such, it is beneficial to optimize the stat.
+
+-   The stats `ff_avg_speed`, and `ff_avg_spin` refer to the speed in mph and spin in rpm of a fastball pitched.
+    This is helpful as a pitcher would want the highest speed and spin possible on a fastball, generally.
+
+-Exploratory Data Analysis -Summary
