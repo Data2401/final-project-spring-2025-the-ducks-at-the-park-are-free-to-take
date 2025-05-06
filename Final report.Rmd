@@ -191,30 +191,17 @@ But again, Spider Tack is not the only tool at play; if it were, we might expect
 However, Statcast is playing a significant role too.
 We believe Statcast has mitigated the effects of banning Spider Tack such that pitchers are still somewhat maintaining their pre-ban strikeout rates.
 
-**5. Summary** 
+**Summary** 
 
--   
+In short the main goal for our team was to analyze the effects Statcast had on player performance.
+More specifically, how did player performance evolve over time as a result of MLB teams increasingly using Statcast in their training programs.
 
-    ![unchecked](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAA1ElEQVR4Ae3bMQ4BURSFYY2xBuwQ7BIkTGxFRj9Oo9RdkXn5TvL3L19u+2ZmZmZmZhVbpH26pFcaJ9IrndMudb/CWadHGiden1bll9MIzqd79SUd0thY20qga4NA50qgoUGgoRJo/NL/V/N+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEyFeEZyXQpUGgUyXQrkGgTSVQl/qGcG5pnkq3Sn0jOMv0k3Vpm05pmNjfsGPalFyOmZmZmdkbSS9cKbtzhxMAAAAASUVORK5CYII=)
+We achieved this by collecting data from both batters and pitchers.
+In particular, on the batters' side we discovered an increase over the years across variables such as average launch angle and exit velocity.
+Moreover, we noticed positive and negative correlations between xwobacon, woba, and various other variables.
+For pitchers, we discovered that a pitcher’s preferred pitch was the fast ball.
+We also tracked their hard hitting percentages over the years, noting a steady increase.
 
-    \- Summarize the problem statement.
-
--   
-
-    ![unchecked](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAA1ElEQVR4Ae3bMQ4BURSFYY2xBuwQ7BIkTGxFRj9Oo9RdkXn5TvL3L19u+2ZmZmZmZhVbpH26pFcaJ9IrndMudb/CWadHGiden1bll9MIzqd79SUd0thY20qga4NA50qgoUGgoRJo/NL/V/N+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEyFeEZyXQpUGgUyXQrkGgTSVQl/qGcG5pnkq3Sn0jOMv0k3Vpm05pmNjfsGPalFyOmZmZmdkbSS9cKbtzhxMAAAAASUVORK5CYII=)
-
-    \- Summarize how your addressed this problem statement
-
--   
-
-    ![unchecked](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAA1ElEQVR4Ae3bMQ4BURSFYY2xBuwQ7BIkTGxFRj9Oo9RdkXn5TvL3L19u+2ZmZmZmZhVbpH26pFcaJ9IrndMudb/CWadHGiden1bll9MIzqd79SUd0thY20qga4NA50qgoUGgoRJo/NL/V/N+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEyFeEZyXQpUGgUyXQrkGgTSVQl/qGcG5pnkq3Sn0jOMv0k3Vpm05pmNjfsGPalFyOmZmZmdkbSS9cKbtzhxMAAAAASUVORK5CYII=)
-
-    \- Summarize the interesting insights your analysis gave
-
--   
-
-    ![unchecked](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAA1ElEQVR4Ae3bMQ4BURSFYY2xBuwQ7BIkTGxFRj9Oo9RdkXn5TvL3L19u+2ZmZmZmZhVbpH26pFcaJ9IrndMudb/CWadHGiden1bll9MIzqd79SUd0thY20qga4NA50qgoUGgoRJo/NL/V/N+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEyFeEZyXQpUGgUyXQrkGgTSVQl/qGcG5pnkq3Sn0jOMv0k3Vpm05pmNjfsGPalFyOmZmZmdkbSS9cKbtzhxMAAAAASUVORK5CYII=)
-
-    \- Summarize the implications of your findings
-
--   \- Discuss the limitations of your findings and how you or someone else could improve upon it
+All of these findings help us establish that there was indeed an impact of Statcast on player performance in the years since it was implemented. 
+Limitations of these findings include the lack of back-tracking data as this data was only included in the middle of 2023.
+Furthermore, this data only followed qualified hitters in MLB and not in MiLB, NPB, KBO, or any other baseball leagues.
